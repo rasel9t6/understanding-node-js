@@ -1,4 +1,4 @@
-const { Buffer, constants } = require("buffer");
+import { Buffer, constants } from "buffer";
 
 const b = Buffer.alloc(1e9); // 1,000,000,000 bytes (1 GB)
 // const b = Buffer.alloc(8e8); // 800,000,000 bytes (500 MB)

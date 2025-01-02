@@ -1,6 +1,6 @@
 // 0100 1000 0110 1001 0010 0001
 
-const { Buffer } = require("buffer");
+import { Buffer } from "buffer";
 
 const buff = Buffer.alloc(3); // 24 bits / 8 => 3 bytes
 

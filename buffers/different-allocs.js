@@ -1,4 +1,4 @@
-const { Buffer } = require("buffer");
+import { Buffer } from "buffer";
 
 const buffer = Buffer.alloc(10000);
 
