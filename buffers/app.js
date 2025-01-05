@@ -1,4 +1,4 @@
-const { Buffer } = require("buffer");
+const { Buffer } = require('buffer');
 
 /*
 const memoryContainer = Buffer.alloc(4); // 4 bytes (32 bits)
@@ -32,5 +32,5 @@ const buff = Buffer.from("Hi!", "utf-8");
 console.log(buff);
 */
 
-const buff = Buffer.from("E0A49B", "hex");
-console.log(buff.toString("utf-8"));
+const buff = Buffer.from('E0A49B', 'hex');
+console.log(buff.toString('utf-8'));

@@ -1,4 +1,4 @@
-import { Buffer } from "buffer";
+import { Buffer } from 'buffer';
 
 const buffer = Buffer.alloc(10000);
 
@@ -13,7 +13,7 @@ const buff = Buffer.allocUnsafeSlow(2);
 for (let i = 0; i < unsafeBuffer.length; i++) {
   if (unsafeBuffer[i] !== 0) {
     console.log(
-      `Element at position ${i} has value: ${unsafeBuffer[i].toString(2)}`
+      `Element at position ${i} has value: ${unsafeBuffer[i].toString(2)}`,
     );
   }
 }

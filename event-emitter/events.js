@@ -2,11 +2,15 @@
 // The code was grabbed from https://www.freecodecamp.org/news/how-to-code-your-own-event-emitter-in-node-js-a-step-by-step-guide-e13b7e7908e1/
 
 // Make sure to export the class to be able to use it in the app.js file
-module.exports = class EventEmitter {
-  listeners = {}; // Master object
+export default class EventEmitter {
+  constructor() {
+    this.listeners = {}; // Master object for event listeners
+  }
 
   addListener(eventName, fn) {
-    this.listeners[eventName] = this.listeners[eventName] || [];
+    if (!this.listeners[eventName]) {
+      this.listeners[eventName] = [];
+    }
     this.listeners[eventName].push(fn);
     return this;
   }
@@ -16,11 +20,15 @@ module.exports = class EventEmitter {
   }
 
   once(eventName, fn) {
-    this.listeners[eventName] = this.listeners[eventName] || [];
-    const onceWrapper = () => {
-      fn();
+    if (!this.listeners[eventName]) {
+      this.listeners[eventName] = [];
+    }
+
+    const onceWrapper = (...args) => {
+      fn(...args);
       this.off(eventName, onceWrapper);
     };
+
     this.listeners[eventName].push(onceWrapper);
     return this;
   }
@@ -30,33 +38,39 @@ module.exports = class EventEmitter {
   }
 
   removeListener(eventName, fn) {
-    let lis = this.listeners[eventName];
+    const lis = this.listeners[eventName];
     if (!lis) return this;
-    // We've added an equal sign to make the once method work as expected
-    for (let i = lis.length; i >= 0; i--) {
-      if (lis[i] === fn) {
+
+    for (let i = lis.length - 1; i >= 0; i--) {
+      if (lis[i] === fn || lis[i].listener === fn) {
         lis.splice(i, 1);
         break;
       }
     }
+
+    if (lis.length === 0) {
+      delete this.listeners[eventName]; // Clean up empty event names
+    }
+
     return this;
   }
 
   emit(eventName, ...args) {
-    let fns = this.listeners[eventName];
+    const fns = this.listeners[eventName];
     if (!fns) return false;
-    fns.forEach((f) => {
-      f(...args);
+
+    fns.slice().forEach((fn) => {
+      fn(...args);
     });
+
     return true;
   }
 
   listenerCount(eventName) {
-    let fns = this.listeners[eventName] || [];
-    return fns.length;
+    return this.listeners[eventName]?.length || 0;
   }
 
   rawListeners(eventName) {
-    return this.listeners[eventName];
+    return this.listeners[eventName] || [];
   }
-};
+}

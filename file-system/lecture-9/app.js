@@ -1,28 +1,28 @@
-const fs = require("fs/promises");
+const fs = require('fs/promises');
 
 (async () => {
   const createFile = async (path) => {
     try {
       // we want to check whether or not we already have that file
-      const existingFileHandle = await fs.open(path, "r");
+      const existingFileHandle = await fs.open(path, 'r');
       existingFileHandle.close();
 
       // we already have that file...
       return console.log(`The file ${path} already exists.`);
     } catch (e) {
       // we don't have the file, now we should create it
-      const newFileHandle = await fs.open(path, "w");
-      console.log("A new file was successfully created.");
+      const newFileHandle = await fs.open(path, 'w');
+      console.log('A new file was successfully created.');
       newFileHandle.close();
     }
   };
 
   // commands
-  const CREATE_FILE = "create a file";
+  const CREATE_FILE = 'create a file';
 
-  const commandFileHandler = await fs.open("./command.txt", "r");
+  const commandFileHandler = await fs.open('./command.txt', 'r');
 
-  commandFileHandler.on("change", async () => {
+  commandFileHandler.on('change', async () => {
     // get the size of our file
     const size = (await commandFileHandler.stat()).size;
     // allocate our buffer with the size of the file
@@ -37,7 +37,7 @@ const fs = require("fs/promises");
     // we always want to read the whole content (from beginning all the way to the end)
     await commandFileHandler.read(buff, offset, length, position);
 
-    const command = buff.toString("utf-8");
+    const command = buff.toString('utf-8');
 
     // create a file:
     // create a file <path>
@@ -48,10 +48,10 @@ const fs = require("fs/promises");
   });
 
   // watcher...
-  const watcher = fs.watch("./command.txt");
+  const watcher = fs.watch('./command.txt');
   for await (const event of watcher) {
-    if (event.eventType === "change") {
-      commandFileHandler.emit("change");
+    if (event.eventType === 'change') {
+      commandFileHandler.emit('change');
     }
   }
 })();

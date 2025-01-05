@@ -1,9 +1,9 @@
-import { open, watch } from "fs/promises";
+import { open, watch } from 'fs/promises';
 
 (async () => {
-  const commandFileHandler = await open("./command.txt", "r");
+  const commandFileHandler = await open('./command.txt', 'r');
 
-  commandFileHandler.on("change", async () => {
+  commandFileHandler.on('change', async () => {
     // get the size of our file
     const size = (await commandFileHandler.stat()).size;
     // allocate our buffer with the size of the file
@@ -20,17 +20,17 @@ import { open, watch } from "fs/promises";
       buff,
       offset,
       length,
-      position
+      position,
     );
 
     console.log(content);
   });
 
   // watcher...
-  const watcher = watch("./command.txt");
+  const watcher = watch('./command.txt');
   for await (const event of watcher) {
-    if (event.eventType === "change") {
-      commandFileHandler.emit("change");
+    if (event.eventType === 'change') {
+      commandFileHandler.emit('change');
     }
   }
 })();
