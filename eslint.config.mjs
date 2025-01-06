@@ -1,12 +1,12 @@
-import pkg from '@eslint/js';
-import prettier from 'eslint-plugin-prettier';
+import pkg from "@eslint/js";
+import prettier from "eslint-plugin-prettier";
 const { eslintRecommended } = pkg;
 export default [
   {
-    files: ['**/*.js', '**/*.ts'],
+    files: ["**/*.js", "**/*.ts"],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: 'module',
+      sourceType: "module",
       globals: {
         // Define global variables
         NodeJS: true,
@@ -14,10 +14,10 @@ export default [
     },
     rules: {
       ...eslintRecommended,
-      'prettier/prettier': [
-        'error',
+      "prettier/prettier": [
+        "error",
         {
-          endOfLine: 'auto',
+          endOfLine: "auto",
           singleQuote: true,
         },
       ],

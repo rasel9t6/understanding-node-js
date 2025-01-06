@@ -17,6 +17,6 @@
 // });
 
 // ****** Synchronous API ****** //
-const fs = require('fs');
+const fs = require("fs");
 
-fs.copyFileSync('file.txt', 'copied-sync.txt');
+fs.copyFileSync("file.txt", "copied-sync.txt");

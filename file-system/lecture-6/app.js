@@ -1,12 +1,12 @@
-import { open, watch } from 'fs/promises';
+import { open, watch } from "fs/promises";
 
 (async () => {
-  const commandFileHandler = await open('./command.txt', 'r');
+  const commandFileHandler = await open("./command.txt", "r");
 
-  const watcher = watch('./command.txt');
+  const watcher = watch("./command.txt");
 
   for await (const event of watcher) {
-    if (event.eventType === 'change') {
+    if (event.eventType === "change") {
       // The file was changed...
       console.log(event);
 
