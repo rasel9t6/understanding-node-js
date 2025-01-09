@@ -1,5 +1,5 @@
-const { Transform } = require("node:stream");
-const fs = require("node:fs/promises");
+const { Transform } = require('node:stream');
+const fs = require('node:fs/promises');
 
 class Encrypt extends Transform {
   _transform(chunk, encoding, callback) {
@@ -14,8 +14,8 @@ class Encrypt extends Transform {
 }
 
 (async () => {
-  const readFileHandle = await fs.open("read.txt", "r");
-  const writeFileHandle = await fs.open("write.txt", "w");
+  const readFileHandle = await fs.open('read.txt', 'r');
+  const writeFileHandle = await fs.open('write.txt', 'w');
 
   const readStream = readFileHandle.createReadStream();
   const writeStream = writeFileHandle.createWriteStream();

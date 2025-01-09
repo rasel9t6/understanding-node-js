@@ -1,5 +1,5 @@
-const { Writable } = require("node:stream");
-const fs = require("node:fs");
+const { Writable } = require('node:stream');
+const fs = require('node:fs');
 
 class FileWriteStream extends Writable {
   constructor({ highWaterMark, fileName }) {
@@ -15,7 +15,7 @@ class FileWriteStream extends Writable {
   // This will run after the constructor, and it will put off calling all the other
   // methods until we call the callback function
   _construct(callback) {
-    fs.open(this.fileName, "w", (err, fd) => {
+    fs.open(this.fileName, 'w', (err, fd) => {
       if (err) {
         // so if we call the callback with an argument, it means that we have an error
         // and we should not proceed
@@ -59,7 +59,7 @@ class FileWriteStream extends Writable {
   }
 
   _destroy(error, callback) {
-    console.log("Number of writes:", this.writesCount);
+    console.log('Number of writes:', this.writesCount);
     if (this.fd) {
       fs.close(this.fd, (err) => {
         callback(err || error);
@@ -71,10 +71,10 @@ class FileWriteStream extends Writable {
 }
 
 (async () => {
-  console.time("writeMany");
+  console.time('writeMany');
 
   const stream = new FileWriteStream({
-    fileName: "text.txt",
+    fileName: 'text.txt',
   });
 
   let i = 0;
@@ -83,7 +83,7 @@ class FileWriteStream extends Writable {
 
   const writeMany = () => {
     while (i < numberOfWrites) {
-      const buff = Buffer.from(` ${i} `, "utf-8");
+      const buff = Buffer.from(` ${i} `, 'utf-8');
 
       // this is our last write
       if (i === numberOfWrites - 1) {
@@ -101,13 +101,13 @@ class FileWriteStream extends Writable {
 
   let d = 0;
   // resume our loop once our stream's internal buffer is emptied
-  stream.on("drain", () => {
+  stream.on('drain', () => {
     ++d;
     writeMany();
   });
 
-  stream.on("finish", () => {
-    console.log("Number of drains:", d);
-    console.timeEnd("writeMany");
+  stream.on('finish', () => {
+    console.log('Number of drains:', d);
+    console.timeEnd('writeMany');
   });
 })();

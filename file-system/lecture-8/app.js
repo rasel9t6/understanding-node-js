@@ -1,9 +1,9 @@
-const fs = require("fs/promises");
+const fs = require('fs/promises');
 
 (async () => {
-  const commandFileHandler = await fs.open("./command.txt", "r");
+  const commandFileHandler = await fs.open('./command.txt', 'r');
 
-  commandFileHandler.on("change", async () => {
+  commandFileHandler.on('change', async () => {
     // get the size of our file
     const size = (await commandFileHandler.stat()).size;
     // allocate our buffer with the size of the file
@@ -18,14 +18,14 @@ const fs = require("fs/promises");
     // we always want to read the whole content (from beginning all the way to the end)
     await commandFileHandler.read(buff, offset, length, position);
 
-    console.log(buff.toString("utf-8"));
+    console.log(buff.toString('utf-8'));
   });
 
   // watcher...
-  const watcher = fs.watch("./command.txt");
+  const watcher = fs.watch('./command.txt');
   for await (const event of watcher) {
-    if (event.eventType === "change") {
-      commandFileHandler.emit("change");
+    if (event.eventType === 'change') {
+      commandFileHandler.emit('change');
     }
   }
 })();

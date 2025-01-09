@@ -49,14 +49,14 @@
 //   console.timeEnd("writeMany");
 // })();
 
-const fs = require("node:fs/promises");
+const fs = require('node:fs/promises');
 
 // Execution Time: 300ms
 // Memory Usage: 50MB
 // Number of Writes: 1,000,000
 (async () => {
-  console.time("writeMany");
-  const fileHandle = await fs.open("test.txt", "w");
+  console.time('writeMany');
+  const fileHandle = await fs.open('test.txt', 'w');
 
   const stream = fileHandle.createWriteStream();
 
@@ -89,7 +89,7 @@ const fs = require("node:fs/promises");
 
   const writeMany = () => {
     while (i < numberOfWrites) {
-      const buff = Buffer.from(` ${i} `, "utf-8");
+      const buff = Buffer.from(` ${i} `, 'utf-8');
 
       // this is our last write
       if (i === numberOfWrites - 1) {
@@ -106,13 +106,13 @@ const fs = require("node:fs/promises");
   writeMany();
 
   // resume our loop once our stream's internal buffer is emptied
-  stream.on("drain", () => {
+  stream.on('drain', () => {
     // console.log("Drained!!!");
     writeMany();
   });
 
-  stream.on("finish", () => {
-    console.timeEnd("writeMany");
+  stream.on('finish', () => {
+    console.timeEnd('writeMany');
     fileHandle.close();
   });
 })();

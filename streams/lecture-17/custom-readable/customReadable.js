@@ -1,5 +1,5 @@
-const { Readable } = require("node:stream");
-const fs = require("node:fs");
+const { Readable } = require('node:stream');
+const fs = require('node:fs');
 
 class FileReadStream extends Readable {
   constructor({ highWaterMark, fileName }) {
@@ -9,7 +9,7 @@ class FileReadStream extends Readable {
   }
 
   _construct(callback) {
-    fs.open(this.fileName, "r", (err, fd) => {
+    fs.open(this.fileName, 'r', (err, fd) => {
       if (err) return callback(err);
       this.fd = fd;
       callback();
@@ -34,13 +34,13 @@ class FileReadStream extends Readable {
   }
 }
 
-const stream = new FileReadStream({ fileName: "text.txt" });
+const stream = new FileReadStream({ fileName: 'text.txt' });
 
-stream.on("data", (chunk) => {
+stream.on('data', (chunk) => {
   console.log(chunk.length);
-  console.log(chunk.toString("utf-8"));
+  console.log(chunk.toString('utf-8'));
 });
 
-stream.on("end", () => {
-  console.log("Stream is done reading.");
+stream.on('end', () => {
+  console.log('Stream is done reading.');
 });

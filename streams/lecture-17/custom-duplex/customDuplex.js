@@ -1,5 +1,5 @@
-const { Duplex } = require("node:stream");
-const fs = require("node:fs");
+const { Duplex } = require('node:stream');
+const fs = require('node:fs');
 
 class DuplexStream extends Duplex {
   constructor({
@@ -18,10 +18,10 @@ class DuplexStream extends Duplex {
   }
 
   _construct(callback) {
-    fs.open(this.readFileName, "r", (err, readFd) => {
+    fs.open(this.readFileName, 'r', (err, readFd) => {
       if (err) return callback(err);
       this.readFd = readFd;
-      fs.open(this.writeFileName, "w", (err, writeFd) => {
+      fs.open(this.writeFileName, 'w', (err, writeFd) => {
         if (err) return callback(err);
         this.writeFd = writeFd;
         callback();
@@ -71,16 +71,16 @@ class DuplexStream extends Duplex {
 }
 
 const duplex = new DuplexStream({
-  readFileName: "read.txt",
-  writeFileName: "write.txt",
+  readFileName: 'read.txt',
+  writeFileName: 'write.txt',
 });
 
-duplex.write(Buffer.from("this is a string 0"));
-duplex.write(Buffer.from("this is a string 1\n"));
-duplex.write(Buffer.from("this is a string 2"));
-duplex.write(Buffer.from("this is a string 3"));
-duplex.end(Buffer.from("end of write"));
+duplex.write(Buffer.from('this is a string 0'));
+duplex.write(Buffer.from('this is a string 1\n'));
+duplex.write(Buffer.from('this is a string 2'));
+duplex.write(Buffer.from('this is a string 3'));
+duplex.end(Buffer.from('end of write'));
 
-duplex.on("data", (chunk) => {
-  console.log(chunk.toString("utf-8"));
+duplex.on('data', (chunk) => {
+  console.log(chunk.toString('utf-8'));
 });

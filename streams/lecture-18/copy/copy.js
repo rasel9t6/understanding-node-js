@@ -1,5 +1,5 @@
-const { pipeline } = require("node:stream");
-const fs = require("node:fs/promises");
+const { pipeline } = require('node:stream');
+const fs = require('node:fs/promises');
 
 // File Size Copied: 1 GB
 // Memory Usage: 1 GB
@@ -51,10 +51,10 @@ const fs = require("node:fs/promises");
 // Execution Time: 1 s
 // Maximum File Size Able to Copy: No Limit
 (async () => {
-  console.time("copy");
+  console.time('copy');
 
-  const srcFile = await fs.open("text-big.txt", "r");
-  const destFile = await fs.open("text-copy.txt", "w");
+  const srcFile = await fs.open('text-big.txt', 'r');
+  const destFile = await fs.open('text-copy.txt', 'w');
 
   const readStream = srcFile.createReadStream();
   const writeStream = destFile.createWriteStream();
@@ -81,6 +81,6 @@ const fs = require("node:fs/promises");
   // handle the cleanings for you and give you an easy way for error handling
   pipeline(readStream, writeStream, (err) => {
     console.log(err);
-    console.timeEnd("copy");
+    console.timeEnd('copy');
   });
 })();
